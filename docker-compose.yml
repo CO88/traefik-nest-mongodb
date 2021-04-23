@@ -1,0 +1,40 @@
+version: "3.3"
+
+services: 
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.routers.api-rtr.rule=PathPrefix(`/`)"
+      - "traefik.http.services.api-svs.loadbalancer.server.port=3000"
+    networks: 
+      - internal
+
+  traefik:
+    image: traefik:v2.1
+    command:
+      - --api.insecure=true # Don't do that in production!
+      - --log=true
+      - --accessLog=true
+      - --accessLog.filePath=/traefik.log
+      - --accessLog.bufferingSize=100
+      - --accessLog.filters.statusCodes=400-499
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=internal
+    ports:
+      - 3000:80
+      - 3001:8080
+    labels: 
+      ## Services - API
+      - "traefik.http.routers.traefik-rtr.service=api@internal"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - internal
+      - default
+  
+networks:
+  internal:
