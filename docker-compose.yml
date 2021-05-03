@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     labels: 
       - "traefik.enable=true"
-      - "traefik.http.routers.api-rtr.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.api-rtr.rule=Host(`cobb.localhost`)"
       - "traefik.http.services.api-svs.loadbalancer.server.port=3000"
     networks: 
       - internal
@@ -27,9 +27,6 @@ services:
     ports:
       - 3000:80
       - 3001:8080
-    labels: 
-      ## Services - API
-      - "traefik.http.routers.traefik-rtr.service=api@internal"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
