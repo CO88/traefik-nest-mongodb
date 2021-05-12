@@ -9,6 +9,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.api-rtr.rule=Host(`cobb.localhost`)"
       - "traefik.http.services.api-svs.loadbalancer.server.port=3000"
+    depends_on: 
+      - mongodb
     networks: 
       - internal
 
@@ -32,6 +34,16 @@ services:
     networks:
       - internal
       - default
-  
+
+  mongodb:
+    image: mongo:4
+    volumes: 
+      - data:/data/db
+    networks: 
+      - internal
+
 networks:
   internal:
+
+volumes: 
+  data:
