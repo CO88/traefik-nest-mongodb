@@ -1,7 +1,7 @@
 FROM node:lts-alpine
 RUN apk add --no-cache inotify-tools
 # Env
-ENV NODE_ENV=production
+ENV NODE_ENV=development
 # Create Directory for the Container
 WORKDIR /usr/src/app
 # Only copy the package.json file to work directory
