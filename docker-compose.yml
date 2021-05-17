@@ -13,6 +13,8 @@ services:
       - mongodb
     networks: 
       - internal
+    volumes: 
+      - app_volume:/usr/src/app
 
   traefik:
     image: traefik:v2.1
@@ -36,9 +38,14 @@ services:
       - default
 
   mongodb:
-    image: mongo:4
+    image: mongo:4.2
+    container_name: mongodb
+    environment: 
+      - MONGO_INITDB_DATABASE=${DB_NAME}
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
     volumes: 
-      - data:/data/db
+      - mongodbdata:/data/db
     networks: 
       - internal
 
@@ -46,4 +53,16 @@ networks:
   internal:
 
 volumes: 
-  data:
+  mongodbdata:
+  app_volume:
+    driver: local
+    driver_opts: 
+      type: nfs
+      device: ${APP_DIR}
+      o: bind
+  # mongodb:
+  #   driver: local
+  #   driver_opts: 
+  #     type: nfs
+  #     device: ${MONGO_DIR}
+  #     o: bind

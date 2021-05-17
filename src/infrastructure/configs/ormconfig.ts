@@ -1,4 +1,8 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { config } from 'dotenv';
+
+const env = process.env.NODE_ENV || 'development';
+config();
 
 export const typeormConfig: TypeOrmModuleOptions = {
     type: 'mongodb',
@@ -7,7 +11,7 @@ export const typeormConfig: TypeOrmModuleOptions = {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     entities: [],
-    ssl: true,
+    ssl: env === 'production',
     useNewUrlParser: true,
     useUnifiedTopology: true,
 };
