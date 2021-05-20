@@ -1,7 +1,7 @@
 import { DomainPrimitive, ValueObject } from '../bases/value-object.base';
 import { ArgumentInvalidException } from '../exceptions/argument-invalid.exception';
 
-export class DataVO extends ValueObject<Date> {
+export class DateVO extends ValueObject<Date> {
     constructor(value: Date | string | number) {
         const date = new Date(value);
         super({ value: date });
@@ -11,8 +11,8 @@ export class DataVO extends ValueObject<Date> {
         return this.props.value;
     }
 
-    public static now(): DataVO {
-        return new DataVO(Date.now());
+    public static now(): DateVO {
+        return new DateVO(Date.now());
     }
 
     protected validate({ value }: DomainPrimitive<Date>): void {

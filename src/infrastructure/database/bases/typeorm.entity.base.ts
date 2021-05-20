@@ -2,6 +2,7 @@ import {
     CreateDateColumn,
     ObjectID,
     ObjectIdColumn,
+    PrimaryColumn,
     UpdateDateColumn,
 } from 'typeorm';
 
@@ -12,7 +13,7 @@ export abstract class TypeOrmEntityBase {
         }
     }
 
-    @ObjectIdColumn({ update: false })
+    @PrimaryColumn({ update: false })
     id!: ObjectID;
 
     @CreateDateColumn({
