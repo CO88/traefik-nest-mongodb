@@ -1,3 +1,5 @@
+import { convertPropsToObject } from '../utils/convert-props-to-object.util';
+
 export type Primitives = string | number | boolean;
 export interface DomainPrimitive<T extends Primitives | Date> {
     value: T;
@@ -6,11 +8,46 @@ export interface DomainPrimitive<T extends Primitives | Date> {
 type ValueObjectProps<T> = T extends Primitives | Date ? DomainPrimitive<T> : T;
 
 export abstract class ValueObject<T> {
-    protected readonly props: ValueObjectProps<T>;
-
     constructor(props: ValueObjectProps<T>) {
         this.props = props;
     }
+    protected readonly props: ValueObjectProps<T>;
 
     protected abstract validate(props: ValueObjectProps<T>): void;
+
+    static isValueObject(obj: unknown): obj is ValueObject<unknown> {
+        return obj instanceof ValueObject;
+    }
+
+    /**
+     * Check if two Value Objects are equals. Checks structural equality.
+     * @param vo ValueObject
+     */
+    public equals(vo?: ValueObject<T>): boolean {
+        if (vo === null || vo === undefined) {
+            return false;
+        }
+
+        return JSON.stringify(this) === JSON.stringify(vo);
+    }
+
+    public getRawProps(): T {
+        if (this.isDomainPrimitive(this.props)) {
+            return this.props.value;
+        }
+
+        const propsCopy = convertPropsToObject(this.props);
+
+        return Object.freeze(propsCopy);
+    }
+
+    private isDomainPrimitive(
+        obj: unknown,
+    ): obj is DomainPrimitive<T & (Primitives | Date)> {
+        if (Object.prototype.hasOwnProperty.call(obj, 'value')) {
+            return true;
+        }
+
+        return false;
+    }
 }

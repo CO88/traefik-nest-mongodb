@@ -1,6 +1,7 @@
 import { ArgumentNotProvidedException } from '../exceptions/argument-not-provided.exception';
 import { ArgumentOutOfRangeException } from '../exceptions/argument-out-of-range.exception';
 import { Guard } from '../guard';
+import { convertPropsToObject } from '../utils/convert-props-to-object.util';
 import { DateVO } from '../value-objects/date.value-object';
 import { ID } from '../value-objects/id.value-object';
 
@@ -44,7 +45,37 @@ export abstract class Entity<EntityProps> {
         return entity instanceof Entity;
     }
 
-    // 여기 작성해야합니다.
+    /**
+     * Using ID field check if two entities are the same Entity.
+     * @param object Entity
+     */
+    public equals(object?: Entity<EntityProps>): boolean {
+        if (object === null || object === undefined) {
+            return false;
+        }
+
+        if (this === object) {
+            return true;
+        }
+
+        if (!Entity.isEntity(object)) {
+            return false;
+        }
+
+        return this.id ? this.id.equals(object.id) : false;
+    }
+
+    public toObject(): unknown {
+        const propsCopy = convertPropsToObject(this.props);
+
+        const result = {
+            id: this._id.value,
+            createdAt: this._createdAt.value,
+            updatedAt: this._updatedAt.value,
+            ...propsCopy,
+        };
+        return Object.freeze(result);
+    }
 
     private validateProps(props: EntityProps) {
         const maxProps = 50;
