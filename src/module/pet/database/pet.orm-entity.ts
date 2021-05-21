@@ -2,9 +2,9 @@ import { TypeOrmEntityBase } from 'src/infrastructure/database/bases/typeorm.ent
 import { Column, Entity } from 'typeorm';
 
 @Entity('pets')
-export class Pet extends TypeOrmEntityBase {
-    constructor(pet?: Partial<Pet>) {
-        super(pet);
+export class PetOrmEntity extends TypeOrmEntityBase {
+    constructor(props?: PetOrmEntity) {
+        super(props);
     }
 
     @Column() name: string;

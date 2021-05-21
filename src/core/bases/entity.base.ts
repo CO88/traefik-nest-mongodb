@@ -65,6 +65,16 @@ export abstract class Entity<EntityProps> {
         return this.id ? this.id.equals(object.id) : false;
     }
 
+    public getPropsCopy(): EntityProps & BaseEntityProps {
+        const propsCopy = {
+            id: this._id,
+            createdAt: this._createdAt,
+            updatedAt: this._updatedAt,
+            ...this.props,
+        };
+        return Object.freeze(propsCopy);
+    }
+
     public toObject(): unknown {
         const propsCopy = convertPropsToObject(this.props);
 
