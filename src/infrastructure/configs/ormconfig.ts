@@ -10,8 +10,9 @@ export const typeormConfig: TypeOrmModuleOptions = {
     database: process.env.DB_NAME,
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    entities: [],
+    entities: ['dist/**/*.orm-entity{.js,.ts}'],
     ssl: env === 'production',
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    authSource: 'admin',
 };

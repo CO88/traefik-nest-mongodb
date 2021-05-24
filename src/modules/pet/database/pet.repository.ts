@@ -27,6 +27,27 @@ export class PetRepository
             new PetOrmMapper(PetEntity, PetOrmEntity),
             new Logger('user-repository'),
         );
+
+        console.log(petRepository.manager.connection);
+    }
+
+    private async findOneByName(
+        name: string,
+    ): Promise<PetOrmEntity | undefined> {
+        const pet = await this.petRepository.findOne({
+            where: { name },
+        });
+
+        return pet;
+    }
+
+    async exists(name: string): Promise<boolean> {
+        const found = await this.findOneByName(name);
+        if (found) {
+            return true;
+        }
+
+        return false;
     }
 
     protected prepareQuery(
