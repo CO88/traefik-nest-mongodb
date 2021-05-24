@@ -42,8 +42,10 @@ services:
     container_name: mongodb
     environment: 
       - MONGO_INITDB_DATABASE=${DB_NAME}
-      - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=${DB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MONGO_DATABASE_USERNAME=${DB_USERNAME}
+      - MONGO_DATABASE_PASSWORD=${DB_PASSWORD}
     volumes: 
       - ./deploy/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
       - mongodbdata:/data/db
