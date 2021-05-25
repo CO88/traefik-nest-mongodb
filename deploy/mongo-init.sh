@@ -1,5 +1,6 @@
-mongo -u "${MONGO_INITDB_ROOT_USERNAME}" -p "${MONGO_INITDB_ROOT_PASSWORD}" --authenticationDatabase "admin" <<EOF
+mongo <<EOF
 use admin
+db.auth('${MONGO_INITDB_ROOT_USERNAME}', '${MONGO_INITDB_ROOT_PASSWORD}')
 db.createUser({
     user: '${MONGO_DATABASE_USERNAME}',
     pwd: '${MONGO_DATABASE_PASSWORD}',

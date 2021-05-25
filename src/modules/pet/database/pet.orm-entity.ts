@@ -1,7 +1,7 @@
 import { TypeOrmEntityBase } from 'src/infrastructure/database/bases/typeorm.entity.base';
 import { Column, Entity } from 'typeorm';
 
-@Entity('pets')
+@Entity('pet')
 export class PetOrmEntity extends TypeOrmEntityBase {
     constructor(props?: PetOrmEntity) {
         super(props);
