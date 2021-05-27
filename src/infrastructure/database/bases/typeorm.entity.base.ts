@@ -12,20 +12,17 @@ export abstract class TypeOrmEntityBase {
         }
     }
 
-    @ObjectIdColumn({ primary: true, type: 'char', name: 'id' })
+    @ObjectIdColumn({ primary: true, type: 'varchar', name: 'id' })
     id: string;
 
-    // @PrimaryColumn({ update: false })
-    // id: string;
-
     @CreateDateColumn({
-        type: 'timestamptz',
+        type: 'timestamp',
         update: false,
     })
     createdAt: Date;
 
     @UpdateDateColumn({
-        type: 'timestamptz',
+        type: 'timestamp',
     })
     updatedAt: Date;
 }

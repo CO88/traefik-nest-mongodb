@@ -17,6 +17,19 @@ export const typeormConfig: TypeOrmModuleOptions = {
     authSource: 'admin',
 };
 
+// export const typeormConfig: TypeOrmModuleOptions = {
+//     type: 'mariadb',
+//     host: process.env.DB_HOST,
+//     database: process.env.DB_NAME,
+//     username: process.env.DB_USERNAME,
+//     password: process.env.DB_PASSWORD,
+//     entities: ['dist/**/*.orm-entity.{ts,js}'],
+//     ssl: env === 'production',
+//     // useNewUrlParser: true,
+//     // useUnifiedTopology: true,
+//     // authSource: 'admin',
+// };
+
 // postgress config
 // export const typeormConfig: TypeOrmModuleOptions = {
 //     type: 'postgres',

@@ -43,6 +43,8 @@ export abstract class TypeormRepositoryBase<
         console.log('------!------');
         console.log(ormEntity);
         const result = await this.repository.save(ormEntity);
+        console.log('------!!!------');
+        console.log(result);
         this.logger.debug(
             `[Entity persisted]: ${this.tableName} ${entity.id.value}`,
         );

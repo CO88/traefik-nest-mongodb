@@ -64,6 +64,19 @@ services:
   #     - pdata:/var/lib/postgresql/data
   #   networks:
   #     - internal
+  
+  # mariadb:
+  #   image: "mariadb:10.4.8"
+  #   container_name: "typeorm-mariadb"
+  #   ports:
+  #     - "3307:3306"
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: "admin"
+  #     MYSQL_USER: "cobb"
+  #     MYSQL_PASSWORD: 1234
+  #     MYSQL_DATABASE: "cobb"
+  #   networks: 
+  #     - internal
 
 networks:
   internal:
