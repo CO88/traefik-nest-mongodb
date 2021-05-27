@@ -1,4 +1,4 @@
-import { BaseEntityProps } from 'src/core/bases/entity.base';
+import { BaseEntityProps } from '../../../core/bases/entity.base';
 import { DomainEvents } from 'src/core/domain-events';
 import { NotFoundException } from 'src/core/exceptions/not-found.exception';
 import { Logger } from 'src/core/ports/logger.port';
@@ -40,6 +40,8 @@ export abstract class TypeormRepositoryBase<
 
     async save(entity: Entity): Promise<Entity> {
         const ormEntity = this.mapper.toOrmEntity(entity);
+        console.log('------!------');
+        console.log(ormEntity);
         const result = await this.repository.save(ormEntity);
         this.logger.debug(
             `[Entity persisted]: ${this.tableName} ${entity.id.value}`,
@@ -68,7 +70,6 @@ export abstract class TypeormRepositoryBase<
         params: QueryParams<EntityProps> = {},
     ): Promise<Entity | undefined> {
         const where = this.prepareQuery(params);
-        console.log(where);
         const found = await this.repository.findOne({
             where,
             relations: this.relations,

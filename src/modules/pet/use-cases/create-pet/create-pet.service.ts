@@ -16,11 +16,13 @@ export class CreatePetService {
         }
 
         const pet = new PetEntity(command);
+        console.log(pet);
 
         pet.someBusinessLogic();
 
         const created = await this.petRepo.save(pet);
-
+        console.log('---------------------@@-----------------------');
+        console.log(created);
         return created.id;
     }
 }

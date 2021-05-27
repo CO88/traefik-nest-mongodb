@@ -52,10 +52,24 @@ services:
     networks: 
       - internal
 
+  # postgres:
+  #   container_name: postgres-container
+  #   image: postgres:alpine
+  #   ports:
+  #     - 5432:5432
+  #   environment:
+  #     POSTGRES_USER: user
+  #     POSTGRES_PASSWORD: password
+  #   volumes:
+  #     - pdata:/var/lib/postgresql/data
+  #   networks:
+  #     - internal
+
 networks:
   internal:
 
 volumes: 
+  pdata:
   mongodbdata:
   app_volume:
     driver: local

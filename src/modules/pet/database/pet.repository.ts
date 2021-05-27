@@ -5,7 +5,7 @@ import {
     TypeormRepositoryBase,
     WhereCondition,
 } from 'src/infrastructure/database/bases/typeorm.repository.base';
-import { Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import { PetEntity, PetProps } from '../domain/entities/pet.entity';
 import { PetOrmEntity } from './pet.orm-entity';
 import { PetOrmMapper } from './pet.orm-mapper';
@@ -27,8 +27,6 @@ export class PetRepository
             new PetOrmMapper(PetEntity, PetOrmEntity),
             new Logger('user-repository'),
         );
-
-        console.log(petRepository.manager.connection);
     }
 
     private async findOneByName(

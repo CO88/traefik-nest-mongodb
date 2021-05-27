@@ -9,6 +9,8 @@ export class PetOrmMapper extends OrmMapper<PetEntity, PetOrmEntity> {
     protected toOrmProps(entity: PetEntity): OrmEntityProps<PetOrmEntity> {
         const props = entity.getPropsCopy();
 
+        console.log('---------------------');
+        console.log(props);
         const ormProps: OrmEntityProps<PetOrmEntity> = {
             name: props.name,
             animalType: props.animalType,
