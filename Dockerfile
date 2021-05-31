@@ -12,6 +12,9 @@ RUN npm install
 # Copy all other source code to work directory
 ADD . /usr/src/app
 RUN chmod a+x ./start.sh
+
+EXPOSE 9229 
+
 #runs the script
 ENTRYPOINT ["sh","-c","./start.sh"]
 # Start

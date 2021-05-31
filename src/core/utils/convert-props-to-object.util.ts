@@ -13,6 +13,8 @@ export function convertPropsToObject(props: any): any {
             );
         }
     }
+
+    return propsCopy;
 }
 
 function convertToRaw(item: any): any {
@@ -22,6 +24,8 @@ function convertToRaw(item: any): any {
     if (isEntity(item)) {
         return item.toObject();
     }
+
+    return item;
 }
 
 function isEntity(obj: unknown): obj is Entity<unknown> {

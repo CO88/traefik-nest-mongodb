@@ -11,7 +11,10 @@ services:
       - "traefik.http.services.api-svs.loadbalancer.server.port=3000"
     depends_on: 
       - mongodb
+    ports:
+      - 9229:9229
     networks: 
+      - default
       - internal
     volumes: 
       - app_volume:/usr/src/app
@@ -35,7 +38,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - internal
-      - default
 
   mongodb:
     image: mongo:4.2
@@ -64,7 +66,7 @@ services:
   #     - pdata:/var/lib/postgresql/data
   #   networks:
   #     - internal
-  
+
   # mariadb:
   #   image: "mariadb:10.4.8"
   #   container_name: "typeorm-mariadb"

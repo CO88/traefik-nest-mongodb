@@ -7,8 +7,15 @@ export class PetOrmEntity extends TypeOrmEntityBase {
         super(props);
     }
 
-    @Column() name: string;
-    @Column() animalType: string;
-    @Column() pictureUrl?: string;
-    @Column() birthDate?: Date;
+    @Column()
+    name: string;
+
+    @Column()
+    animalType: string;
+
+    @Column()
+    pictureUrl?: string;
+
+    @Column()
+    birthDate?: Date;
 }

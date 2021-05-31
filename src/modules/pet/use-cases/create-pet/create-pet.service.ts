@@ -21,8 +21,7 @@ export class CreatePetService {
         pet.someBusinessLogic();
 
         const created = await this.petRepo.save(pet);
-        console.log('---------------------@@-----------------------');
-        console.log(created);
+
         return created.id;
     }
 }
