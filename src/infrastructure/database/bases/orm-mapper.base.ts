@@ -5,7 +5,7 @@ import { TypeOrmEntityBase } from './typeorm.entity.base';
 
 export type OrmEntityProps<OrmEntity> = Omit<
     OrmEntity,
-    'id' | 'createdAt' | 'updatedAt'
+    'id' | '_id' | 'createdAt' | 'updatedAt'
 >;
 
 export abstract class OrmMapper<Entity extends BaseEntityProps, OrmEntity> {

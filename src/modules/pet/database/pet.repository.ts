@@ -5,7 +5,7 @@ import {
     TypeormRepositoryBase,
     WhereCondition,
 } from 'src/infrastructure/database/bases/typeorm.repository.base';
-import { getRepository, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { PetEntity, PetProps } from '../domain/entities/pet.entity';
 import { PetOrmEntity } from './pet.orm-entity';
 import { PetOrmMapper } from './pet.orm-mapper';

@@ -1,8 +1,8 @@
-import { TypeOrmEntityBase } from 'src/infrastructure/database/bases/typeorm.entity.base';
+import { TypeOrmMongoEntityBase } from 'src/infrastructure/database/bases/typeorm-mongo.entity.base';
 import { Column, Entity } from 'typeorm';
 
 @Entity('pet')
-export class PetOrmEntity extends TypeOrmEntityBase {
+export class PetOrmEntity extends TypeOrmMongoEntityBase {
     constructor(props?: PetOrmEntity) {
         super(props);
     }

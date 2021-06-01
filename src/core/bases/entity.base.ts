@@ -77,7 +77,6 @@ export abstract class Entity<EntityProps> {
 
     public toObject(): unknown {
         const propsCopy = convertPropsToObject(this.props);
-
         const result = {
             id: this._id.value,
             createdAt: this._createdAt.value,
