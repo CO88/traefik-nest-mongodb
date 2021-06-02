@@ -2,7 +2,7 @@ import { ResponseBase } from 'src/interface-adapters/base-classes/response.base'
 import { Pet } from 'src/interface-adapters/interfaces/pet/pet.interface';
 import { PetEntity } from '../domain/entities/pet.entity';
 
-export class UserResponse extends ResponseBase implements Pet {
+export class PetResponse extends ResponseBase implements Pet {
     constructor(pet: PetEntity) {
         super(pet);
 

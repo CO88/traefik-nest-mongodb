@@ -1,5 +1,5 @@
 import { BaseEntityProps } from '../bases/entity.base';
-import { DeepPartial } from '../types/deep-partial.type';
+import { DeepPartial } from '../types';
 import { ID } from '../value-objects/id.value-object';
 
 export type QueryParams<EntityProps> = DeepPartial<

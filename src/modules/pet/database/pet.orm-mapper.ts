@@ -18,6 +18,7 @@ export class PetOrmMapper extends OrmMapper<PetEntity, PetOrmEntity> {
         return ormProps;
     }
 
+    // VO로 사용될 부분은 여기서 추가해줍니다
     protected toDomainProps(ormEntity: PetOrmEntity): PetProps {
         const props: PetProps = {
             name: ormEntity.name,

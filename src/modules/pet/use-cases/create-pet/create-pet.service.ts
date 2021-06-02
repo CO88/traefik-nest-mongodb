@@ -16,7 +16,6 @@ export class CreatePetService {
         }
 
         const pet = new PetEntity(command);
-        console.log(pet);
 
         pet.someBusinessLogic();
 

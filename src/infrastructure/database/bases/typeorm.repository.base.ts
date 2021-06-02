@@ -45,6 +45,8 @@ export abstract class TypeormRepositoryBase<
         const result = await this.repository.save(ormEntity);
         console.log('------!!!------');
         console.log(result);
+        console.log(ormEntity);
+        console.log('------!!!------');
         this.logger.debug(
             `[Entity persisted]: ${this.tableName} ${entity.id.value}`,
         );
@@ -71,11 +73,13 @@ export abstract class TypeormRepositoryBase<
     async findOne(
         params: QueryParams<EntityProps> = {},
     ): Promise<Entity | undefined> {
+        console.log(params);
         const where = this.prepareQuery(params);
         const found = await this.repository.findOne({
             where,
             relations: this.relations,
         });
+        console.log(where, found);
         return found ? this.mapper.toDomainEntity(found) : undefined;
     }
 

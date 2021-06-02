@@ -15,6 +15,7 @@ export const typeormConfig: TypeOrmModuleOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     authSource: 'admin',
+    logging: 'all',
 };
 
 // export const typeormConfig: TypeOrmModuleOptions = {

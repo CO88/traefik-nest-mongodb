@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { NotFoundException } from 'src/core/exceptions/not-found.exception';
 import { QueryParams } from 'src/core/ports/repository.ports';
 import {
     TypeormRepositoryBase,
@@ -35,8 +36,16 @@ export class PetRepository
         const pet = await this.petRepository.findOne({
             where: { name },
         });
-
         return pet;
+    }
+
+    async findOneByNameOrThrow(name: string): Promise<PetEntity> {
+        const pet = await this.findOneByName(name);
+        if (!pet) {
+            throw new NotFoundException();
+        }
+
+        return this.mapper.toDomainEntity(pet);
     }
 
     async exists(name: string): Promise<boolean> {
