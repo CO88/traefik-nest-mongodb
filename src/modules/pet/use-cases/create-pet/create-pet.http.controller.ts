@@ -22,8 +22,6 @@ export class CreatePetHttpController {
             birthDate: body.birthDate,
         });
 
-        console.log(command);
-
         const id = await this.createPet.createPet(command);
 
         return new IdResponse(id.value);

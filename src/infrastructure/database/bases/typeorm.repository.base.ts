@@ -40,13 +40,7 @@ export abstract class TypeormRepositoryBase<
 
     async save(entity: Entity): Promise<Entity> {
         const ormEntity = this.mapper.toOrmEntity(entity);
-        console.log('------!------');
-        console.log(ormEntity);
         const result = await this.repository.save(ormEntity);
-        console.log('------!!!------');
-        console.log(result);
-        console.log(ormEntity);
-        console.log('------!!!------');
         this.logger.debug(
             `[Entity persisted]: ${this.tableName} ${entity.id.value}`,
         );
