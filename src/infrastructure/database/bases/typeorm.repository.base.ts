@@ -67,13 +67,11 @@ export abstract class TypeormRepositoryBase<
     async findOne(
         params: QueryParams<EntityProps> = {},
     ): Promise<Entity | undefined> {
-        console.log(params);
         const where = this.prepareQuery(params);
         const found = await this.repository.findOne({
             where,
             relations: this.relations,
         });
-        console.log(where, found);
         return found ? this.mapper.toDomainEntity(found) : undefined;
     }
 
@@ -130,6 +128,18 @@ export abstract class TypeormRepositoryBase<
 
         return result;
     }
+
+    // async update(entity: Entity): Promise<Entity> {
+    //     const ormEntity = this.mapper.toOrmEntity(entity);
+    //     const result = await this.repository.update(
+    //         { id: },
+    //         ormEntity,
+    //     );
+    //     this.logger.debug(
+    //         `[Entity persisted]: ${this.tableName} ${entity.id.value}`,
+    //     );
+    //     return this.mapper.toDomainEntity(result.raw);
+    // }
 
     async delete(entity: Entity): Promise<Entity> {
         await this.repository.remove(this.mapper.toOrmEntity(entity));

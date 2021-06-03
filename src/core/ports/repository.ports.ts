@@ -55,6 +55,10 @@ export interface FindManyPaginated<Entity, EntityProps> {
     ): Promise<DataWithPaginationMeta<Entity[]>>;
 }
 
+// export interface Update<Entity, EntityProps> {
+//     update(entity: Entity, entityProps: EntityProps): Promise<Entity>;
+// }
+
 export interface DeleteOne<Entity> {
     delete(entity: Entity): Promise<Entity>;
 }
@@ -65,5 +69,6 @@ export interface RepositoryPort<Entity, EntityProps>
         FindOneById<Entity>,
         FindMany<Entity, EntityProps>,
         FindManyPaginated<Entity, EntityProps>,
+        // Update<Entity, EntityProps>,
         DeleteOne<Entity>,
         SaveMultiple<Entity> {}

@@ -36,6 +36,7 @@ export class PetRepository
         const pet = await this.petRepository.findOne({
             where: { name },
         });
+
         return pet;
     }
 
@@ -46,6 +47,24 @@ export class PetRepository
         }
 
         return this.mapper.toDomainEntity(pet);
+    }
+
+    async updateOneByNameOrThrow(petEntity: PetEntity): Promise<PetEntity> {
+        const petProps = this.mapper.toOrmEntity(petEntity);
+
+        const result1 = await this.petRepository.findOne({
+            id: petEntity.id.value,
+        });
+        const result = await this.petRepository.update(
+            { id: petEntity.id.value },
+            petProps,
+        );
+
+        console.log(petEntity.id.value);
+        console.log(result);
+        console.log(petProps);
+        console.log(result1);
+        return this.mapper.toDomainEntity(result.raw);
     }
 
     async exists(name: string): Promise<boolean> {
