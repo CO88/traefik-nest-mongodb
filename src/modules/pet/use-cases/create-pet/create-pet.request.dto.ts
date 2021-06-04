@@ -12,6 +12,6 @@ export class CreatePetRequest implements CreatePet {
     @IsString()
     pictureUrl?: string;
 
-    @IsDate()
+    @IsString()
     birthDate?: Date;
 }
