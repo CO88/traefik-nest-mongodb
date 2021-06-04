@@ -15,20 +15,9 @@ export class UpdatePetHttpController {
 
     @Patch(routes.pet.root)
     async update(
-        @Query() id: string,
+        @Query('id') id: string,
         @Body() body: UpdatePetRequest,
-    ): Promise<IdResponse> {
-        console.log(id);
-        console.log(body);
-        const command = new UpdatePetCommand({
-            name: body.name,
-            animalType: body.animalType,
-            pictureUrl: body.pictureUrl,
-            birthDate: body.birthDate,
-        });
-
-        const test = await this.updatePet.updatePet(command);
-
-        return new IdResponse(test.value);
+    ): Promise<boolean> {
+        return await this.updatePet.updatePet(id, body);
     }
 }

@@ -9,7 +9,12 @@ import {
     RepositoryPort,
 } from 'src/core/ports/repository.ports';
 import { ID } from 'src/core/value-objects/id.value-object';
-import { FindConditions, ObjectLiteral, Repository } from 'typeorm';
+import {
+    FindConditions,
+    MongoRepository,
+    ObjectLiteral,
+    Repository,
+} from 'typeorm';
 import { OrmMapper } from './orm-mapper.base';
 
 export type WhereCondition<OrmEntity> =
@@ -25,7 +30,9 @@ export abstract class TypeormRepositoryBase<
 > implements RepositoryPort<Entity, EntityProps>
 {
     protected constructor(
-        protected readonly repository: Repository<OrmEntity>,
+        protected readonly repository:
+            | Repository<OrmEntity>
+            | MongoRepository<OrmEntity>,
         protected readonly mapper: OrmMapper<Entity, OrmEntity>,
         protected readonly logger: Logger,
     ) {}
@@ -128,18 +135,6 @@ export abstract class TypeormRepositoryBase<
 
         return result;
     }
-
-    // async update(entity: Entity): Promise<Entity> {
-    //     const ormEntity = this.mapper.toOrmEntity(entity);
-    //     const result = await this.repository.update(
-    //         { id: },
-    //         ormEntity,
-    //     );
-    //     this.logger.debug(
-    //         `[Entity persisted]: ${this.tableName} ${entity.id.value}`,
-    //     );
-    //     return this.mapper.toDomainEntity(result.raw);
-    // }
 
     async delete(entity: Entity): Promise<Entity> {
         await this.repository.remove(this.mapper.toOrmEntity(entity));

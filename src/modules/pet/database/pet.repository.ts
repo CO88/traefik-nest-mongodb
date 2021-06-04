@@ -6,7 +6,7 @@ import {
     TypeormRepositoryBase,
     WhereCondition,
 } from 'src/infrastructure/database/bases/typeorm.repository.base';
-import { Repository } from 'typeorm';
+import { MongoRepository } from 'typeorm';
 import { PetEntity, PetProps } from '../domain/entities/pet.entity';
 import { PetOrmEntity } from './pet.orm-entity';
 import { PetOrmMapper } from './pet.orm-mapper';
@@ -21,7 +21,7 @@ export class PetRepository
 
     constructor(
         @InjectRepository(PetOrmEntity)
-        private readonly petRepository: Repository<PetOrmEntity>,
+        private readonly petRepository: MongoRepository<PetOrmEntity>,
     ) {
         super(
             petRepository,
@@ -36,7 +36,6 @@ export class PetRepository
         const pet = await this.petRepository.findOne({
             where: { name },
         });
-
         return pet;
     }
 
@@ -49,22 +48,18 @@ export class PetRepository
         return this.mapper.toDomainEntity(pet);
     }
 
-    async updateOneByNameOrThrow(petEntity: PetEntity): Promise<PetEntity> {
-        const petProps = this.mapper.toOrmEntity(petEntity);
-
-        const result1 = await this.petRepository.findOne({
-            id: petEntity.id.value,
-        });
-        const result = await this.petRepository.update(
-            { id: petEntity.id.value },
-            petProps,
+    async updateOneByNameOrThrow(
+        id: string,
+        petProps: PetProps,
+    ): Promise<boolean> {
+        const result = await this.petRepository.updateOne(
+            { id },
+            {
+                $set: petProps,
+            },
         );
 
-        console.log(petEntity.id.value);
-        console.log(result);
-        console.log(petProps);
-        console.log(result1);
-        return this.mapper.toDomainEntity(result.raw);
+        return result.modifiedCount > 0;
     }
 
     async exists(name: string): Promise<boolean> {
