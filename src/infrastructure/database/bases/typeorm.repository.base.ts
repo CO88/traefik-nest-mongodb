@@ -137,7 +137,12 @@ export abstract class TypeormRepositoryBase<
     }
 
     async delete(entity: Entity): Promise<Entity> {
-        await this.repository.remove(this.mapper.toOrmEntity(entity));
+        if (this.repository instanceof MongoRepository) {
+            await this.repository.deleteOne({ id: entity.id.value });
+        } else {
+            await this.repository.delete(this.mapper.toOrmEntity(entity));
+        }
+
         this.logger.debug(
             `[Entity deleted]: ${this.tableName} ${entity.id.value}`,
         );

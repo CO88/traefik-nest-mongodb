@@ -16,7 +16,7 @@ export abstract class TypeOrmMongoEntityBase implements TypeOrmEntityBase {
     @PrimaryColumn()
     id: string;
 
-    @ObjectIdColumn({ primary: true, name: '_id' })
+    @ObjectIdColumn({ name: '_id' })
     _id: string;
 
     @CreateDateColumn({
