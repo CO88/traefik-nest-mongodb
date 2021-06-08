@@ -8,13 +8,13 @@ services:
     labels: 
       traefik.enable: true
       traefik.http.routers.api-rtr.rule: Host(`api.localhost`)
-      traefik.http.routers.api-rtr.entrypoints: web
+      traefik.http.routers.api-rtr.entrypoints: http
       traefik.http.services.api-svs.loadbalancer.server.port: 3000
     depends_on: 
       - mongodb
     ports:
       - 9229:9229
-    networks: 
+    networks:
       - internal
     volumes: 
       - app_volume:/usr/src/app
@@ -34,7 +34,7 @@ services:
     labels:
       traefik.enable: true
       traefik.http.routers.jaeger.rule: Host(`jaeger.localhost`)
-      traefik.http.routers.jaeger.entrypoints: web
+      traefik.http.routers.jaeger.entrypoints: http
       traefik.http.routers.jaeger.service: jaeger
       traefik.http.services.jaeger.loadbalancer.server.port: 16686
     networks:
@@ -45,7 +45,7 @@ services:
     labels: 
       traefik.enable: true
       traefik.http.routers.dashboard.rule: Host(`dashboard.localhost`)
-      traefik.http.routers.dashboard.entrypoints: web
+      traefik.http.routers.dashboard.entrypoints: http
       traefik.http.routers.dashboard.service: api@internal
       traefik.http.services.dashboard.loadbalancer.server.port: 8080
     ports:
@@ -55,6 +55,7 @@ services:
       - .traefik/traefik.yaml:/traefik.yaml
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
+      - default
       - internal
 
   mongodb:

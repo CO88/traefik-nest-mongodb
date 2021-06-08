@@ -28,7 +28,8 @@ api:
   debug: true
 
 entryPoints:
-  web:
+  # Create an entrypoint "http" listening on address 80
+  http:
     address: :80
   
 tracing:
